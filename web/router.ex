@@ -7,6 +7,7 @@ defmodule MenuMonkey.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug MenuMonkey.Auth, repo: MenuMonkey.Repo
   end
 
   pipeline :api do
@@ -18,6 +19,7 @@ defmodule MenuMonkey.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.

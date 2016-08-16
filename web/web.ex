@@ -36,6 +36,7 @@ defmodule MenuMonkey.Web do
 
       import MenuMonkey.Router.Helpers
       import MenuMonkey.Gettext
+      import MenuMonkey.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -58,6 +59,7 @@ defmodule MenuMonkey.Web do
   def router do
     quote do
       use Phoenix.Router
+      import MenuMonkey.Auth, only: [authenticate_user: 2]
     end
   end
 

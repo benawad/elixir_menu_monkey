@@ -1,5 +1,7 @@
 defmodule MenuMonkey.UserController do
   use MenuMonkey.Web, :controller
+  plug :authenticate_user when action in [:index, :show, :edit, :delete]
+
 
   alias MenuMonkey.User
 
@@ -14,12 +16,13 @@ defmodule MenuMonkey.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.registration_changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> MenuMonkey.Auth.login(user)
+        |> put_flash(:info, "#{user.username} created!")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
