@@ -22,6 +22,7 @@ defmodule MenuMonkey.ModelCase do
       import Ecto.Changeset
       import Ecto.Query
       import MenuMonkey.ModelCase
+      import MenuMonkey.TestHelpers
     end
   end
 

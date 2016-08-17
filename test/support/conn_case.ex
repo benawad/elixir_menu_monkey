@@ -26,6 +26,7 @@ defmodule MenuMonkey.ConnCase do
       import Ecto.Query
 
       import MenuMonkey.Router.Helpers
+      import MenuMonkey.TestHelpers
 
       # The default endpoint for testing
       @endpoint MenuMonkey.Endpoint
